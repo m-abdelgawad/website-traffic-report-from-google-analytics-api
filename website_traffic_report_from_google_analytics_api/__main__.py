@@ -1,10 +1,10 @@
 import os
 import yaml
 import traceback
-from packages.file import file
-from packages.logger import logger
-from packages.dateTimeTools import dateTimeTools
-from packages.googleAnalytics import googleAnalytics
+from .packages.file import file
+from .packages.logger import logger
+from .packages.dateTimeTools import dateTimeTools
+from .packages.googleAnalytics import googleAnalytics
 
 # Initiate logger
 log = logger.get(app_name='google-analytics')
