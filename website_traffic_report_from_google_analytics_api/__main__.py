@@ -92,7 +92,7 @@ def main():
     users_time_labels = []
     users_time_data = []
     for date in users_dict:
-        date_formatted = dateTimeTools.reformat_date(
+        date_formatted = dateTimeTools.format_str_date(
             input_date=date,
             current_format='%Y%m%d',
             target_format='%Y-%m-%d'
@@ -130,6 +130,18 @@ def main():
     log.info('Users per Devices dict: {0}'.format(devices_dict))
     log.info('Users per Device labels: {0}'.format(users_device_labels))
     log.info('Users per Device data: {0}\n'.format(users_device_data))
+
+    # Change format of the start and end dates
+    start_date = dateTimeTools.format_str_date(
+        input_date=start_date,
+        current_format='%Y-%m-%d',
+        target_format='%d %b %Y'
+    )
+    end_date = dateTimeTools.format_str_date(
+        input_date=end_date,
+        current_format='%Y-%m-%d',
+        target_format='%d %b %Y'
+    )
 
     output_dict = {
         'start_date': str(start_date),

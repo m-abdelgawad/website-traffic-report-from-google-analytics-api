@@ -22,5 +22,9 @@ def get_past_date(days_count, output_format='%Y-%m-%d'):
     return (tday_date - past_date).strftime(output_format)
 
 
-def reformat_date(input_date, current_format, target_format):
+def format_date(input_date, target_format):
+    return input_date.strftime(target_format)
+
+
+def format_str_date(input_date, current_format, target_format):
     return datetime.strptime(input_date, current_format).strftime(target_format)
