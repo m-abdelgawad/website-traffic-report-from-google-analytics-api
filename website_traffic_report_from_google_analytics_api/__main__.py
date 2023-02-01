@@ -6,8 +6,6 @@ from packages.logger import logger
 from packages.dateTimeTools import dateTimeTools
 from packages.googleAnalytics import googleAnalytics
 
-# https://developers.google.com/analytics/devguides/reporting/data/v1/api-schema#dimensions
-
 # Initiate logger
 log = logger.get(app_name='google-analytics')
 
@@ -91,7 +89,6 @@ def main():
                 devices_dict[current_device] = current_users_count
 
     # Get the labels and data of the users per time graph
-    users_time_dict = {}
     users_time_labels = []
     users_time_data = []
     for date in users_dict:
@@ -135,9 +132,9 @@ def main():
     log.info('Users per Device data: {0}\n'.format(users_device_data))
 
     output_dict = {
-        'start_date': start_date,
-        'end_date': end_date,
-        'total_users': total_users,
+        'start_date': str(start_date),
+        'end_date': str(end_date),
+        'total_users': '{0:,d}'.format(total_users),
         'users_time_labels': users_time_labels,
         'users_time_data': users_time_data,
         'users_country_labels': users_country_labels,
