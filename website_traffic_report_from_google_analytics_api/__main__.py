@@ -91,6 +91,7 @@ def main():
     # Get the labels and data of the users per time graph
     users_time_labels = []
     users_time_data = []
+    users_dict = dict(sorted(users_dict.items()))
     for date in users_dict:
         date_formatted = dateTimeTools.format_str_date(
             input_date=date,
