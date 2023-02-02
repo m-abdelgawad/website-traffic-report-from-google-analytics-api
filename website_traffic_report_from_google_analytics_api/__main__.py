@@ -11,7 +11,6 @@ log = logger.get(app_name='google-analytics')
 
 
 def main():
-
     log.info('Start program execution')
 
     project_abs_path = file.caller_dir_path()
@@ -105,17 +104,30 @@ def main():
     countries_dict = {k: v for k, v in sorted(
         countries_dict.items(), key=lambda item: item[1], reverse=True
     )}
-    users_country_labels = [key for key in countries_dict]
-    users_country_data = [countries_dict[key] for key in users_country_labels]
+    users_country_labels = []
+    users_country_data = []
+    for country in countries_dict:
+        users_country_labels.append(country)
+        users_country_data.append(countries_dict[country])
+        if len(users_country_labels) == 10:
+            break
 
     # Get the labels and data of the users per PageTitle graph
     # Remove the website part from the title, for example:
-    # 'Contact - Automagic Developer' ---> 'Contact'
+    # 'Contact | Automagic Developer' ---> 'Contact'
     pagetitle_dict = {k: v for k, v in sorted(
         pagetitle_dict.items(), key=lambda item: item[1], reverse=True
     )}
-    users_page_labels = [key.split(' -')[0] for key in pagetitle_dict]
-    users_page_data = [pagetitle_dict[key] for key in pagetitle_dict]
+    users_page_labels = []
+    users_page_data = []
+    for page in pagetitle_dict:
+        page_title = page.split(' - AutoMagic Developer')[0]
+        if len(page_title) > 20:
+            page_title = page_title[:20] + '...'
+        users_page_labels.append(page_title)
+        users_page_data.append(pagetitle_dict[page])
+        if len(users_page_labels) == 20:
+            break
 
     # Get the labels and data of the users per device graph
     devices_dict = {k: v for k, v in sorted(
