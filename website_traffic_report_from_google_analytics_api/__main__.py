@@ -100,17 +100,27 @@ def main():
         )
         users_time_labels.append(date_formatted)
         users_time_data.append(users_dict[date])
+
     # Get the labels and data of the users per country graph
+    countries_dict = {k: v for k, v in sorted(
+        countries_dict.items(), key=lambda item: item[1], reverse=True
+    )}
     users_country_labels = [key for key in countries_dict]
     users_country_data = [countries_dict[key] for key in users_country_labels]
 
     # Get the labels and data of the users per PageTitle graph
-    # Remote the website part from the title, for example:
+    # Remove the website part from the title, for example:
     # 'Contact - Automagic Developer' ---> 'Contact'
+    pagetitle_dict = {k: v for k, v in sorted(
+        pagetitle_dict.items(), key=lambda item: item[1], reverse=True
+    )}
     users_page_labels = [key.split(' -')[0] for key in pagetitle_dict]
     users_page_data = [pagetitle_dict[key] for key in pagetitle_dict]
 
     # Get the labels and data of the users per device graph
+    devices_dict = {k: v for k, v in sorted(
+        devices_dict.items(), key=lambda item: item[1], reverse=True
+    )}
     users_device_labels = [key for key in devices_dict]
     users_device_data = [devices_dict[key] for key in users_device_labels]
 
