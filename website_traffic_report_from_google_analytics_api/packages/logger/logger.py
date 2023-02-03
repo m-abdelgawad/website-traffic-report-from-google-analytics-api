@@ -36,7 +36,7 @@ def setup_app_logger(logger_name, log_file_path=None):
         # Set a FileHandler write the logs inside the file
         file_handler = RotatingFileHandler(
             filename=log_file_path, mode='a', maxBytes=5*1024*1024,
-            backupCount=100, encoding=None, delay=False
+            backupCount=100, encoding='utf8', delay=False
         )
 
         # Set the format of the FileHandler
@@ -44,7 +44,6 @@ def setup_app_logger(logger_name, log_file_path=None):
 
         # Add the filehandler
         logger.addHandler(file_handler)
-
 
     # Return the logger
     return logger
@@ -57,7 +56,7 @@ def create_log_file(app_name, parent_dir_path):
     if not os.path.exists(logs_folder_path):
         os.makedirs(logs_folder_path)
 
-    # Get current DateTimeTools
+    # Get current timestamp
     current_timestamp = str(datetime.now().strftime("%Y-%m-%d__%H-%M-%S"))
 
     # Logs file name
@@ -73,23 +72,30 @@ def create_log_file(app_name, parent_dir_path):
     return logs_file_path
 
 
-def get(app_name='log'):
+def get(app_name='logs', enable_logs_file=True):
 
-    # Get absolute path of the caller module
-    caller_abs_path = inspect.stack()[1].filename
+    if enable_logs_file:
 
-    # Get the absolute path of the Repo directory
-    # which is the parent directory of the parent directory of googleAnalytics.py
-    # that supposes to call this function
-    repo_abs_path = os.path.dirname(os.path.dirname(caller_abs_path))
+        # Get absolute path of the caller module
+        caller_abs_path = inspect.stack()[1].filename
 
-    # Create the logs file
-    logs_file_path = create_log_file(
-        app_name=app_name, parent_dir_path=repo_abs_path
-    )
+        # Get the absolute path of the Repo directory
+        # which is the parent directory of the parent directory of __main__.py
+        # that supposes to call this function
+        repo_abs_path = os.path.dirname(os.path.dirname(caller_abs_path))
 
-    # Create the logger
-    logger = setup_app_logger(logger_name='', log_file_path=logs_file_path)
+        # Create the logs file
+        logs_file_path = create_log_file(
+            app_name=app_name, parent_dir_path=repo_abs_path
+        )
+
+        # Create the logger
+        logger = setup_app_logger(logger_name='', log_file_path=logs_file_path)
+
+    else:
+
+        # Create the logger
+        logger = setup_app_logger(logger_name='', log_file_path=None)
 
     # Return the logger
     return logger

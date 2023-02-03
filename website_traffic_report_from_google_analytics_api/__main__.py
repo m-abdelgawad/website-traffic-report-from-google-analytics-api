@@ -6,8 +6,9 @@ from packages.logger import logger
 from packages.dateTimeTools import dateTimeTools
 from packages.googleAnalytics import googleAnalytics
 
+
 # Initiate logger
-log = logger.get(app_name='google-analytics')
+log = logger.get(app_name='google-analytics', enable_logs_file=False)
 
 
 def main():
